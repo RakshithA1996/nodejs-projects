@@ -15,7 +15,7 @@ router.post("/signup", async (req, res) => {
   const checkData = await User.find({ mobilenumber: checkNo });
   console.log(checkData);
   if (checkData.length) {
-    res.json({ status: "failure" });
+    res.json({ status: "mobile number already exists" });
   }
   try {
     const saveUser = await userSignup.save();
