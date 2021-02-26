@@ -15,13 +15,17 @@ router.post("/signup", async (req, res) => {
   const checkNo = userSignup.mobilenumber;
   const checkData = await User.find({ mobilenumber: checkNo });
   if (checkData.length) {
-    res.json({ status: "mobile number already exists" });
+    res.json({ message: "mobile number already exists", status: "failure" });
   }
   try {
     const saveUser = await userSignup.save();
-    res.json(saveUser);
+    res.json({
+      data: saveUser,
+      message: "signup successful",
+      status: "success",
+    });
   } catch {
-    res.json({ status: "failure" });
+    res.json({ message: "signup failed", status: "failure" });
   }
 });
 
@@ -31,10 +35,24 @@ router.post("/login", async (req, res) => {
   const checkEmailArr = await User.find({ emailaddress: loginData.email });
   if (checkEmailArr.length) {
     if (checkEmailArr[0].password === loginData.password) {
-      res.json({ isLogin: true, status: "success" });
+      res.json({
+        isLogin: true,
+        message: "login successful",
+        status: "success",
+      });
     } else {
-      res.json({ isLogin: false, status: "user not registered" });
+      res.json({
+        data: { isLogin: false },
+        message: "Password invalid",
+        status: "failure",
+      });
     }
+  } else {
+    res.json({
+      data: { isLogin: false },
+      message: "user not registered",
+      status: "failure",
+    });
   }
 });
 
