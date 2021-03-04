@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/userRegisterModel");
+const Book = require("../models/bookDetailsModel");
 
 // Router initialization
 const router = express.Router();
@@ -60,6 +61,11 @@ router.post("/login", async (req, res) => {
 router.get("/allDetails", async (req, res) => {
   const userDetails = await User.find();
   res.json(userDetails);
+});
+
+router.get("/allBooks", async (req, res) => {
+  const bookDetails = await Book.find();
+  res.json(bookDetails);
 });
 
 module.exports = router;
