@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/userRegisterModel");
-const Book = require("../models/bookDetailsModel");
+const popBook = require("../models/popularBookModel");
 
 // Router initialization
 const router = express.Router();
@@ -63,9 +63,20 @@ router.get("/allDetails", async (req, res) => {
   res.json(userDetails);
 });
 
+// All popular books get api
 router.get("/allBooks", async (req, res) => {
-  const bookDetails = await Book.find();
-  res.json(bookDetails);
+  const bookDetails = await popBook.find();
+  try {
+    res.json({
+      data: bookDetails,
+      message: "Popular books retrieved successful",
+      status: "success",
+    });
+  } catch {
+    res.json({
+      status: "failure",
+    });
+  }
 });
 
 module.exports = router;

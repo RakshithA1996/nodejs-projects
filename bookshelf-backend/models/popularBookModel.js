@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const booksSchema = mongoose.Schema({
+const popularBookSchema = mongoose.Schema({
   name: { type: String },
   author: { type: String },
   publisher: { type: String },
@@ -9,4 +9,4 @@ const booksSchema = mongoose.Schema({
   price: { type: Number },
 });
 
-module.exports = mongoose.model("popularbooks", booksSchema);
+module.exports = mongoose.model("popularbooks", popularBookSchema);
