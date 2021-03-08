@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/userRegisterModel");
 const popBook = require("../models/popularBookModel");
+const collBook = require("../models/newCollectionBook");
 
 // Router initialization
 const router = express.Router();
@@ -64,12 +65,28 @@ router.get("/allDetails", async (req, res) => {
 });
 
 // All popular books get api
-router.get("/allBooks", async (req, res) => {
+router.get("/allPopBooks", async (req, res) => {
   const bookDetails = await popBook.find();
   try {
     res.json({
       data: bookDetails,
       message: "Popular books retrieved successful",
+      status: "success",
+    });
+  } catch {
+    res.json({
+      status: "failure",
+    });
+  }
+});
+
+// All new collection get api
+router.get("/allNewCollection", async (req, res) => {
+  const bookDetails = await collBook.find();
+  try {
+    res.json({
+      data: bookDetails,
+      message: "New collection books retrieved successful",
       status: "success",
     });
   } catch {
